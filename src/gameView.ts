@@ -4,6 +4,7 @@ class GameView {
   private cellWidht: number;
   private leftOffset: number;
   private topOffset: number;
+  private colors = ["black", "blue", "green", "red", "darkblue", "brown", "pink", "yellow", "black", "orange"];
 
   constructor(contentEl: HTMLElement, game: Game) {
     this.contentEl = contentEl;
@@ -20,28 +21,30 @@ class GameView {
   };
 
   private drawCell = (i: number, j: number) => {
+    const cell = this.game.playground[i][j];
     const e = document.createElement("div");
-    e.className = "cell " + this.game.playground[i][j].status;
+    e.className = "cell " + cell.status + " " + this.game.status;
     e.style.width = `${this.cellWidht}px`;
     e.style.height = `${this.cellWidht}px`;
     e.style.left = `${this.leftOffset + this.cellWidht * i}px`;
     e.style.top = `${this.topOffset + this.cellWidht * j}px`;
     e.style.fontSize = `${Math.floor(this.cellWidht * 0.8)}px`;
     e.innerHTML =
-      this.game.playground[i][j].status === "hidden"
+      cell.status === "hidden"
         ? ""
-        : this.game.playground[i][j].status === "falg" || this.game.playground[i][j].status === "mineFlag"
+        : cell.status === "flag" || cell.status === "mineFlag"
         ? "&#9872;"
-        : this.game.playground[i][j].status === "visible" && this.game.playground[i][j].value > 0
-        ? this.game.playground[i][j].value.toString()
+        : cell.status === "visible" && cell.value > 0
+        ? cell.value.toString()
         : "";
+    if (cell.status === "visible") e.style.color = this.colors[cell.value];
     e.onclick = () => this.game.clickEvent(i, j);
     this.contentEl.appendChild(e);
   };
 
   private drawBtn = () => {
     const e = document.createElement("div");
-    e.className = "btn " + (this.game.setFlag ? "selected" : "");
+    e.className = "bttn " + (this.game.setFlag ? "selected" : "");
     e.style.width = `${this.cellWidht}px`;
     e.style.height = `${this.cellWidht}px`;
     e.style.left = `${this.leftOffset + Math.floor((this.cellWidht * this.game.size) / 2)}px`;

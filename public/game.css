@@ -6,12 +6,32 @@ body,
 }
 
 .cell,
-.btn {
+.bttn {
   position: absolute;
   border: 1px solid black;
   text-align: center;
 }
+
 .cell.visible,
-.btn.selected {
+.bttn.selected {
   background-color: lightgray;
+}
+
+.cell.lost.mine {
+  background-color: red;
+}
+
+.cell.lost.flag {
+  background-color: orange;
+}
+
+.cell.lost.mineFlag,
+.cell.win.mineFlag {
+  background-color: greenyellow;
+}
+
+.gameOver {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
 }

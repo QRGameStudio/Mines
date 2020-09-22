@@ -1,19 +1,27 @@
 /// <reference path="./gameView.ts"/>
 
 type fieldState = {
-  status: "mine" | "visible" | "hidden" | "falg" | "mineFlag";
+  status: "mine" | "visible" | "hidden" | "flag" | "mineFlag";
   value: number;
 };
+
+type gameStatus = "win" | "lost" | "running";
 
 class Game {
   readonly playground: fieldState[][];
   readonly size: number;
   readonly mines: number;
   private gameView: GameView;
+  private visibleCells: number;
+  private gameOver: () => void;
+  status: gameStatus;
   setFlag: boolean;
 
-  constructor(contentEl: HTMLElement, size: number, mines: number) {
+  constructor(contentEl: HTMLElement, size: number, mines: number, gameOver: () => void) {
     this.size = size;
+    this.visibleCells = 0;
+    this.status = "running";
+    this.gameOver = gameOver;
     this.playground = [];
     for (let i = 0; i < size; i++) {
       this.playground.push([]);
@@ -66,19 +74,28 @@ class Game {
     if (draw === undefined) draw = true;
     const cell = this.playground[i][j];
     if (cell.status === "hidden") {
-      if (this.setFlag) cell.status = "falg";
+      if (this.setFlag) cell.status = "flag";
       else {
         cell.status = "visible";
+        this.visibleCells++;
+        if (this.visibleCells + this.mines === this.size * this.size) {
+          this.status = "win";
+          alert("congratulations, you won!");
+        }
         if (cell.value === 0) this.getNeighbours(i, j).forEach((pos) => this.clickEvent(pos[0], pos[1], false));
       }
-    }
-    if (cell.status === "mine") {
+    } else if (cell.status === "mine") {
       if (this.setFlag) cell.status = "mineFlag";
-      else alert("mine");
-    }
-    if (cell.status === "falg" && this.setFlag) cell.status = "hidden";
-    if (cell.status === "mineFlag" && this.setFlag) cell.status = "mine";
+      else {
+        this.status = "lost";
+        alert("you died");
+      }
+    } else if (cell.status === "flag" && this.setFlag) cell.status = "hidden";
+    else if (cell.status === "mineFlag" && this.setFlag) cell.status = "mine";
 
-    if (draw) this.gameView.draw();
+    if (draw) {
+      this.gameView.draw();
+      if (this.status !== "running") this.gameOver();
+    }
   };
 }
