@@ -1,12 +1,12 @@
 all: compile
 
 clean:
-		rm -rf build/
+	rm -rf dist/
 
 compile:
-		tsc --outFile build/game.js --lib es2015,DOM src/main.ts
-		cp public/* build
-		cd build && node ../../games-builder/build-game.js game.html
+	tsc --outFile dist/game.js -lib dom,es6 src/main.ts
+	cp public/* dist
+	cd dist && node ../../util-games-builder/build-game.js  game.html && mv dist/* . && rm -r dist
 
 .PHONY: clean compile
 .SILENT:
