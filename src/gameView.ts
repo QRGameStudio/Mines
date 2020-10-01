@@ -11,7 +11,7 @@ class GameView {
     this.game = game;
     this.topOffset = 32;
     this.cellWidht = Math.floor(
-      (Math.min(contentEl.getBoundingClientRect().width, contentEl.getBoundingClientRect().height) * 0.8 - 16) / game.size
+      (Math.min(contentEl.getBoundingClientRect().width, contentEl.getBoundingClientRect().height) * 0.9 - 16) / game.size
     );
     this.leftOffset = Math.floor((contentEl.getBoundingClientRect().width - game.size * this.cellWidht) / 2);
   }
