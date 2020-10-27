@@ -9,11 +9,14 @@ class GameView {
   constructor(contentEl: HTMLElement, game: Game) {
     this.contentEl = contentEl;
     this.game = game;
-    this.topOffset = 32;
+    this.topOffset = 64;
     this.cellWidht = Math.floor(
-      (Math.min(contentEl.getBoundingClientRect().width, contentEl.getBoundingClientRect().height) * 0.9 - 16) / game.size
+      Math.max(
+          (Math.min(contentEl.getBoundingClientRect().width, contentEl.getBoundingClientRect().height) * 0.9 - 16) / game.size,
+          64
+      )
     );
-    this.leftOffset = Math.floor((contentEl.getBoundingClientRect().width - game.size * this.cellWidht) / 2);
+    this.leftOffset = Math.max(Math.floor((contentEl.getBoundingClientRect().width - game.size * this.cellWidht) / 2), 0);
   }
 
   private clearBoard = () => {

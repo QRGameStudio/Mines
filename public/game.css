@@ -1,11 +1,20 @@
-html,
-body,
+body, html {
+  width: 100vw;
+  height: 100vh;
+}
+
+body, #game-content {
+  background-color: var(--theme-primary) !important;
+  color: var(--theme-contrast) !important;
+}
+
 #game-content {
   width: 100%;
-  height: 100%;
-  background-color: var(--theme-primary);
-  color: var(--theme-contrast);
+  height: calc(100% - 64px);
   --ctrl-s: min(10vw, min(10vh, 64px));
+  margin-right: var(--ctrl-s);
+  position: relative;
+  overflow: scroll;
 }
 
 .cell,
@@ -18,8 +27,8 @@ body,
 
 .mode {
   position: fixed;
-  top: 16px;
-  right: 16px;
+  top: 32px;
+  left: 16px;
   width: var(--ctrl-s);
   height: var(--ctrl-s);
   font-size: calc(var(--ctrl-s)*0.7);
