@@ -4,14 +4,25 @@ body,
   width: 100%;
   height: 100%;
   background-color: var(--theme-primary);
-  color: var(--theme-contrast)
+  color: var(--theme-contrast);
+  --ctrl-s: min(10vw, min(10vh, 64px));
 }
 
 .cell,
 .bttn {
+  cursor: pointer;
   position: absolute;
   border: 1px solid var(--theme-contrast);
   text-align: center;
+}
+
+.mode {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: var(--ctrl-s);
+  height: var(--ctrl-s);
+  font-size: calc(var(--ctrl-s)*0.7);
 }
 
 .cell.visible,

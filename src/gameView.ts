@@ -44,12 +44,7 @@ class GameView {
 
   private drawBtn = () => {
     const e = document.createElement("div");
-    e.className = "bttn " + (this.game.setFlag ? "selected" : "");
-    e.style.width = `${this.cellWidht}px`;
-    e.style.height = `${this.cellWidht}px`;
-    e.style.left = `${this.leftOffset + Math.floor((this.cellWidht * this.game.size) / 2)}px`;
-    e.style.top = `${2 * this.topOffset + this.cellWidht * this.game.size}px`;
-    e.style.fontSize = `${Math.floor(this.cellWidht * 0.8)}px`;
+    e.className = "bttn mode " + (this.game.setFlag ? "selected" : "");
     e.innerHTML = "&#9872;";
     e.onclick = () => {
       this.game.setFlag = !this.game.setFlag;
