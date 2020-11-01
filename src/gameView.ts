@@ -9,11 +9,14 @@ class GameView {
   constructor(contentEl: HTMLElement, game: Game) {
     this.contentEl = contentEl;
     this.game = game;
-    this.topOffset = 32;
+    this.topOffset = 64;
     this.cellWidht = Math.floor(
-      (Math.min(contentEl.getBoundingClientRect().width, contentEl.getBoundingClientRect().height) * 0.9 - 16) / game.size
+      Math.max(
+          (Math.min(contentEl.getBoundingClientRect().width, contentEl.getBoundingClientRect().height) * 0.9 - 16) / game.size,
+          64
+      )
     );
-    this.leftOffset = Math.floor((contentEl.getBoundingClientRect().width - game.size * this.cellWidht) / 2);
+    this.leftOffset = Math.max(Math.floor((contentEl.getBoundingClientRect().width - game.size * this.cellWidht) / 2), 0);
   }
 
   private clearBoard = () => {
@@ -44,12 +47,7 @@ class GameView {
 
   private drawBtn = () => {
     const e = document.createElement("div");
-    e.className = "bttn " + (this.game.setFlag ? "selected" : "");
-    e.style.width = `${this.cellWidht}px`;
-    e.style.height = `${this.cellWidht}px`;
-    e.style.left = `${this.leftOffset + Math.floor((this.cellWidht * this.game.size) / 2)}px`;
-    e.style.top = `${2 * this.topOffset + this.cellWidht * this.game.size}px`;
-    e.style.fontSize = `${Math.floor(this.cellWidht * 0.8)}px`;
+    e.className = "bttn mode " + (this.game.setFlag ? "selected" : "");
     e.innerHTML = "&#9872;";
     e.onclick = () => {
       this.game.setFlag = !this.game.setFlag;
