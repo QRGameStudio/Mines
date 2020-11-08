@@ -1,37 +1,23 @@
-body, html {
-  width: 100vw;
-  height: 100vh;
-}
-
-body, #game-content {
-  background-color: var(--theme-primary) !important;
-  color: var(--theme-contrast) !important;
-}
-
+html,
+body,
 #game-content {
   width: 100%;
-  height: calc(100% - 64px);
-  --ctrl-s: min(10vw, min(10vh, 64px));
-  margin-right: var(--ctrl-s);
-  position: relative;
-  overflow: scroll;
+  height: 100%;
+  background-color: var(--theme-primary);
+  color: var(--theme-contrast);
 }
 
 .cell,
 .bttn {
-  cursor: pointer;
   position: absolute;
   border: 1px solid var(--theme-contrast);
   text-align: center;
 }
 
-.mode {
+.bttn {
   position: fixed;
-  top: 32px;
-  left: 16px;
-  width: var(--ctrl-s);
-  height: var(--ctrl-s);
-  font-size: calc(var(--ctrl-s)*0.7);
+  background-color: var(--theme-primary);
+  bottom: 8px;
 }
 
 .cell.visible,

@@ -95,7 +95,10 @@ class Game {
 
     if (draw) {
       this.gameView.draw();
-      if (this.status !== "running") this.gameOver();
+      if (this.status !== "running") {
+        this.gameView.resetZoom();
+        this.gameOver();
+      }
     }
   };
 }
